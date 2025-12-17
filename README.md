@@ -99,13 +99,14 @@ Each concern lives in exactly one file.
 ---
 
 📊 UI Enhancements
-• lualine.nvim
-• CPU & RAM usage with icons
-• Dynamic colors based on load
-• fidget.nvim for LSP progress
-• which-key.nvim
-• neo-tree.nvim file explorer
-• telescope.nvim fuzzy finding
+
+- lualine.nvim
+- CPU & RAM usage with icons
+- Dynamic colors based on load
+- fidget.nvim for LSP progress
+- which-key.nvim
+- neo-tree.nvim file explorer
+- telescope.nvim fuzzy finding
 
 ---
 
