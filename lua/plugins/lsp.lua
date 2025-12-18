@@ -8,7 +8,7 @@ return {
 
 		-- Useful status updates for LSP.
 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-		{ "j-hui/fidget.nvim", opts = {} },
+		{ "j-hui/fidget.nvim",       opts = {} },
 
 		-- Allows extra capabilities provided by nvim-cmp
 		"hrsh7th/cmp-nvim-lsp",
@@ -93,6 +93,8 @@ return {
 				--  For example, in C this would take you to the header.
 				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
+				local client = vim.lsp.get_client_by_id(event.data.client_id)
+
 				-- The following two autocommands are used to highlight references of the
 				-- word under your cursor when your cursor rests there for a little while.
 				--    See `:help CursorHold` for information about when this is executed
@@ -157,12 +159,11 @@ return {
 			-- gopls = {},
 			-- pyright = {},
 			rust_analyzer = {
-				cmd = { "rustup", "run", "stable", "rust-analyzer" },
 				settings = {
 					["rust-analyzer"] = {
 						procMacro = { enable = true },
 						cargo = { buildScripts = { enable = true } },
-						check = { command = "clippy" }, -- opcional
+						checkOnSave = { command = "clippy" },
 						inlayHints = {
 							enable = true,
 							typeHints = { enable = true },
@@ -172,6 +173,7 @@ return {
 					},
 				},
 			},
+			taplo = {}, -- .toml
 			--
 			-- Some languages (like typescript) have entire language plugins that can be useful:
 			--    https://github.com/pmizio/typescript-tools.nvim
@@ -238,6 +240,15 @@ return {
 
 		local disabled = { stylua = true }
 
+		-- Diagnostics (Neovim 0.11+)
+		vim.diagnostic.config({
+			virtual_text = true,
+			signs = true,
+			underline = true,
+			update_in_insert = false,
+			severity_sort = true,
+		})
+
 		require("mason-lspconfig").setup({
 			handlers = {
 				function(server_name)
@@ -252,6 +263,21 @@ return {
 					require("lspconfig")[server_name].setup(server)
 				end,
 			},
+		})
+
+
+
+		-- FormatOnSave .toml
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*.toml",
+			callback = function()
+				vim.lsp.buf.format({
+					timeout_ms = 1000,
+					filter = function(client)
+						return client.name == "taplo"
+					end,
+				})
+			end,
 		})
 	end,
 }
