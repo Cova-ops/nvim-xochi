@@ -1,7 +1,9 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
+	branch = "master",
 	event = { "BufReadPost", "BufNewFile" },
+
 
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
@@ -46,7 +48,12 @@ return {
 			"tsx",
 		},
 		auto_install = true,
-		highlight = { enable = true, additional_vim_regex_highlighting = false },
+
+		highlight = {
+			enable = true,
+			additional_vim_regex_highlighting = false,
+		},
+
 		indent = { enable = true },
 
 		textobjects = {
@@ -63,21 +70,21 @@ return {
 			move = {
 				enable = true,
 				set_jumps = true,
-				goto_next_start = { ["]m"] = "@function.outer", ["]]"] = "@class.outer" },
-				goto_previous_start = { ["[m"] = "@function.outer", ["[["] = "@class.outer" },
+				goto_next_start = {
+					["]m"] = "@function.outer",
+					["]]"] = "@class.outer",
+				},
+				goto_previous_start = {
+					["[m"] = "@function.outer",
+					["[["] = "@class.outer",
+				},
 			},
 		},
 
 		matchup = { enable = true },
 		autotag = { enable = true },
 	},
-
-	config = function(_, opts)
-		require("lazy").load({ plugins = { "nvim-treesitter-textobjects" } })
-		require("nvim-treesitter.config").setup(opts)
-	end,
 }
-
 -- ===========================================================
 -- 📘 COMANDOS DE FOLD EN NEOVIM
 -- ===========================================================

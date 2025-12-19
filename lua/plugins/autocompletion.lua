@@ -73,7 +73,8 @@ return { -- Autocompletion
           luasnip.lsp_expand(args.body)
         end,
       },
-      completion = { completeopt = 'menu,menuone,noinsert' },
+      completion = { completeopt = 'menu,menuone,noselect' },
+      preselect = cmp.PreselectMode.None,
 
       -- For an understanding of why these mappings were
       -- chosen, you will need to read `:help ins-completion`
@@ -129,7 +130,7 @@ return { -- Autocompletion
         -- Select next/previous item with Tab / Shift + Tab
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            cmp.select_next_item()
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
           elseif luasnip.expand_or_locally_jumpable() then
             luasnip.expand_or_jump()
           else
@@ -138,7 +139,7 @@ return { -- Autocompletion
         end, { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            cmp.select_prev_item()
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
           elseif luasnip.locally_jumpable(-1) then
             luasnip.jump(-1)
           else
@@ -173,4 +174,3 @@ return { -- Autocompletion
     }
   end,
 }
-
