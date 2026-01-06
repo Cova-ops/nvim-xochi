@@ -14,22 +14,26 @@ vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", opts)
 -- save all files on buffers
 vim.keymap.set("n", "<leader>wa", function()
 	local ok, conform = pcall(require, "conform")
+
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 		local bo = vim.bo[buf]
 		local named = vim.api.nvim_buf_get_name(buf) ~= ""
+
 		if bo.modified and bo.modifiable and bo.buftype == "" and named then
+			-- Format
 			if ok then
 				conform.format({ bufnr = buf, lsp_fallback = true, async = false, quiet = true })
 			else
 				pcall(vim.lsp.buf.format, { bufnr = buf, timeout_ms = 3000 })
 			end
+
+			-- Save
 			vim.api.nvim_buf_call(buf, function()
 				vim.cmd("silent! write")
 			end)
 		end
 	end
-end, { desc = "Format & save all modified buffers", silent = true, noremap = true })
-
+end, { desc = "Format & save all modified buffers (remove unused Rust imports)", silent = true })
 -- save all files on buffer without saving
 vim.keymap.set("n", "<leader>wA", "<cmd>wall<CR>", { desc = "Save all (no format)", silent = true, noremap = true })
 
@@ -64,9 +68,9 @@ vim.keymap.set("n", "<leader>xo", ":%bd|e#|bd#<CR>", opts)
 vim.keymap.set("n", "<leader>b", "<cmd> enew <CR>", opts) -- new buffer
 
 -- Window management
-vim.keymap.set("n", "<leader>v", "<C-w>v", opts) -- split window vertically
-vim.keymap.set("n", "<leader>h", "<C-w>s", opts) -- split window horizontally
-vim.keymap.set("n", "<leader>se", "<C-w>=", opts) -- make split windows equal width & height
+vim.keymap.set("n", "<leader>v", "<C-w>v", opts)      -- split window vertically
+vim.keymap.set("n", "<leader>h", "<C-w>s", opts)      -- split window horizontally
+vim.keymap.set("n", "<leader>se", "<C-w>=", opts)     -- make split windows equal width & height
 vim.keymap.set("n", "<leader>xs", ":close<CR>", opts) -- close current split window
 
 -- Navigate between splits
@@ -76,10 +80,10 @@ vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", opts)
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", opts)
 
 -- Tabs
-vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts) -- open new tab
+vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts)   -- open new tab
 vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", opts) -- close current tab
-vim.keymap.set("n", "<leader>tn", ":tabn<CR>", opts) --  go to next tab
-vim.keymap.set("n", "<leader>tp", ":tabp<CR>", opts) --  go to previous tab
+vim.keymap.set("n", "<leader>tn", ":tabn<CR>", opts)     --  go to next tab
+vim.keymap.set("n", "<leader>tp", ":tabp<CR>", opts)     --  go to previous tab
 
 -- Toggle line wrapping
 vim.keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
