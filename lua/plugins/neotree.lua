@@ -40,8 +40,8 @@ return {
 			enable_diagnostics = true,
 			-- enable_normal_mode_for_inputs = false,                             -- Enable normal mode for input dialogs.
 			open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
-			sort_case_insensitive = false, -- used when sorting files and directories in the tree
-			sort_function = nil, -- use a custom function for sorting files and directories in the tree
+			sort_case_insensitive = false,                            -- used when sorting files and directories in the tree
+			sort_function = nil,                                      -- use a custom function for sorting files and directories in the tree
 			-- sort_function = function (a,b)
 			--       if a.type == b.type then
 			--           return a.path > b.path
@@ -49,6 +49,14 @@ return {
 			--           return a.type > b.type
 			--       end
 			--   end , -- this sorts files and directories descendantly
+			event_handlers = {
+				{
+					event = "file_opened",
+					handler = function(_)
+						require("neo-tree.command").execute({ action = "close" })
+					end,
+				},
+			},
 			default_component_configs = {
 				container = {
 					enable_character_fade = true,
@@ -198,9 +206,7 @@ return {
 						"node_modules",
 						"__pycache__",
 						".virtual_documents",
-						".git",
 						".python-version",
-						".venv",
 					},
 					hide_by_pattern = { -- uses glob style patterns
 						--"*.meta",
@@ -218,11 +224,11 @@ return {
 					},
 				},
 				follow_current_file = {
-					enabled = false, -- This will find and focus the file in the active buffer every time
+					enabled = false,        -- This will find and focus the file in the active buffer every time
 					--               -- the current file is changed while the tree is open.
 					leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
 				},
-				group_empty_dirs = false, -- when true, empty folders will be grouped together
+				group_empty_dirs = false,   -- when true, empty folders will be grouped together
 				hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
 				-- in whatever position is specified in window.position
 				-- "open_current",  -- netrw disabled, opening a directory opens within the
@@ -309,7 +315,8 @@ return {
 		})
 
 		vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
-		vim.keymap.set("n", "<leader>e", ":Neotree toggle position=left<CR>", { noremap = true, silent = true }) -- focus file explorer
+		vim.keymap.set("n", "<leader>e", ":Neotree toggle position=left reveal<CR>",
+			{ noremap = true, silent = true, desc = "Neo-tree focus + reveal" })                         -- focus file explorer
 		vim.keymap.set("n", "<leader>ngs", ":Neotree float git_status<CR>", { noremap = true, silent = true }) -- open git status window
 	end,
 }
