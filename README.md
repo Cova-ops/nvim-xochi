@@ -30,7 +30,7 @@ Supported languages (non-exhaustive):
 
 - Rust (rust-analyzer)
 - Lua (lua_ls)
-- TypeScript / JavaScript (ts_ls)
+- TypeScript / JavaScript (typescript-tools)
 - Python (pylsp, ruff)
 - HTML / CSS / Tailwind
 - SQL, Terraform, Docker, YAML, JSON
