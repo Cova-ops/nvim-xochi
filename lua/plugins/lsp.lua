@@ -37,6 +37,11 @@ return {
 				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
 				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+				map("gvd", function()
+					require("telescope.builtin").lsp_definitions({
+						jump_type = "vsplit",
+					})
+				end, "[G]oto [V]ertical [D]efinition")
 
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
 
@@ -231,6 +236,20 @@ return {
 					timeout_ms = 1000,
 					filter = function(client)
 						return client.name == "taplo"
+					end,
+				})
+			end,
+		})
+
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*.rs",
+			callback = function(args)
+				vim.lsp.buf.format({
+					async = false,
+					bufnr = args.buf,
+					timeout_ms = 2000,
+					filter = function(client)
+						return client.name == "rust_analyzer"
 					end,
 				})
 			end,
