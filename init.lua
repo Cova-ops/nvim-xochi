@@ -1,19 +1,15 @@
-if vim.g.vscode then
-	require("core.vscode")
-else
-	require("core.options")
-	require("core.keymaps")
-	require("core.snippets")
-	require("core.autoread")
+require("core.options")
+require("core.keymaps")
+require("core.snippets")
+require("core.autoread")
 
-	-- Own
-	require("own.run")
+-- Own
+require("own.run")
 
-	vim.api.nvim_set_hl(0, "SysInfoOk", { link = "DiagnosticOk" })
-	vim.api.nvim_set_hl(0, "SysInfoWarn", { link = "DiagnosticWarn" })
-	vim.api.nvim_set_hl(0, "SysInfoHigh", { link = "DiagnosticError" })
-	vim.api.nvim_set_hl(0, "SysInfoDim", { link = "Comment" })
-end
+vim.api.nvim_set_hl(0, "SysInfoOk", { link = "DiagnosticOk" })
+vim.api.nvim_set_hl(0, "SysInfoWarn", { link = "DiagnosticWarn" })
+vim.api.nvim_set_hl(0, "SysInfoHigh", { link = "DiagnosticError" })
+vim.api.nvim_set_hl(0, "SysInfoDim", { link = "Comment" })
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
