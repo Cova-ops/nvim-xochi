@@ -4,7 +4,6 @@ return {
 	branch = "master",
 	event = { "BufReadPost", "BufNewFile" },
 
-
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
 		"windwp/nvim-ts-autotag",
@@ -46,6 +45,10 @@ return {
 			"cpp",
 			"css",
 			"tsx",
+			"json",
+			"yaml",
+			"toml",
+			"dockerfile",
 		},
 		auto_install = true,
 
