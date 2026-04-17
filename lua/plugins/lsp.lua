@@ -207,15 +207,9 @@ return {
 		require("mason").setup()
 
 		require("mason-lspconfig").setup({
-
-			-- IMPORTANTE: no metas ts_ls aquí, lo maneja typescript-tools
+			ensure_installed = vim.tbl_keys(servers),
 			handlers = {
 				function(server_name)
-					-- -- 🔥 Bloquea TS LSP duplicado (typescript-tools ya lo maneja)
-					-- if server_name == "ts_ls" or server_name == "tsserver" then
-					-- 	return
-					-- end
-
 					local server = servers[server_name]
 					if not server then
 						return
