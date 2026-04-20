@@ -57,30 +57,5 @@ return {
 				-- fill = {},
 			},
 		})
-
-		-- Guardar automáticamente antes de cambiar de buffer (autosave)
-		-- vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
-		-- 	callback = function()
-		-- 		local buftype = vim.bo.buftype
-		-- 		-- Verificar si el buftype está vacío y establecerlo como un valor predeterminado
-		-- 		if buftype == "" then
-		-- 			buftype = "normal" -- Puedes usar el tipo 'normal' o cualquier valor que te parezca adecuado
-		-- 		end
-		--
-		-- 		-- print("Buffer type: " .. buftype) -- Ver qué tipo de buffer es
-		-- 		if
-		-- 			vim.bo.modified
-		-- 			and vim.bo.modifiable
-		-- 			and not buftype:match("nofile")
-		-- 			and not buftype:match("nowrite")
-		-- 			and not buftype:match("prompt")
-		-- 		then
-		-- 			-- print("Guardando el buffer...")
-		-- 			vim.cmd("silent write")
-		-- 			-- else
-		-- 			-- 	print("No guardado: El buffer es de tipo '" .. buftype .. "'")
-		-- 		end
-		-- 	end,
-		-- })
 	end,
 }
