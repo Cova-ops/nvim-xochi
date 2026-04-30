@@ -2,8 +2,7 @@ require("core.options")
 require("core.keymaps")
 require("core.snippets")
 require("core.autoread")
-
-
+require("core.folds")
 
 vim.api.nvim_set_hl(0, "SysInfoOk", { link = "DiagnosticOk" })
 vim.api.nvim_set_hl(0, "SysInfoWarn", { link = "DiagnosticWarn" })
