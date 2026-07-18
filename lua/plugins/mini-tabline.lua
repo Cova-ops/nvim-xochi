@@ -1,0 +1,41 @@
+return {
+	-- "nvim-mini/mini.tabline",
+	-- version = false,
+	-- event = "VeryLazy",
+	--
+	-- config = function()
+	-- 	require("mini.tabline").setup({
+	-- 		show_icons = true,
+	-- 		set_vim_settings = true,
+	--
+	-- 		format = function(buf_id, label)
+	-- 			local name = vim.fn.fnamemodify(label, ":t")
+	-- 			local is_current = vim.api.nvim_get_current_buf() == buf_id
+	-- 			local is_modified = vim.bo[buf_id].modified
+	--
+	-- 			if is_modified then
+	-- 				name = name .. " ●"
+	-- 			end
+	--
+	-- 			if is_current then
+	-- 				return "  " .. name .. "  "
+	-- 			end
+	--
+	-- 			return " " .. name .. " "
+	-- 		end,
+	-- 	})
+	--
+	-- 	vim.api.nvim_set_hl(0, "MiniTablineCurrent", {
+	-- 		bold = true,
+	-- 		underline = true,
+	-- 	})
+	--
+	-- 	vim.api.nvim_set_hl(0, "MiniTablineVisible", {
+	-- 		italic = false,
+	-- 	})
+	--
+	-- 	vim.api.nvim_set_hl(0, "MiniTablineHidden", {
+	-- 		italic = false,
+	-- 	})
+	-- end,
+}
