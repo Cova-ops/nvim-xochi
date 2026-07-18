@@ -1,7 +1,7 @@
-local ok_sys, sys = pcall(require, "utils.sysinfo")
-if ok_sys and sys.setup then
-	sys.setup({ interval_ms = 1500 })
-end
+-- local ok_sys, sys = pcall(require, "utils.sysinfo")
+-- if ok_sys and sys.setup then
+-- 	sys.setup({ interval_ms = 1500 })
+-- end
 
 return {
 	"nvim-lualine/lualine.nvim",
@@ -17,7 +17,7 @@ return {
 		local filename = {
 			"filename",
 			file_status = true, -- displays file status (readonly status, modified status)
-			path = 1,  -- 0 = just filename, 1 = relative path, 2 = absolute path
+			path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
 		}
 
 		local hide_in_width = function()
@@ -42,6 +42,9 @@ return {
 			cond = hide_in_width,
 		}
 
+		-- remove bottom line
+		vim.opt.laststatus = 0
+
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
@@ -54,36 +57,34 @@ return {
 				disabled_filetypes = { "alpha", "neo-tree" },
 				always_divide_middle = true,
 			},
-			sections = {
+			sections = {},
+			inactive_sections = {},
+			winbar = {
 				lualine_a = { mode },
-				lualine_b = { "branch" },
+				-- lualine_b = { "branch" },
 				lualine_c = { filename },
 				lualine_x = {
 					diagnostics,
-					diff,
-					{
-						function()
-							return sys.cpu():gsub("%%", "%%%%")
-						end,
-					},
-					{
-						function()
-							return sys.ram():gsub("%%", "%%%%")
-						end,
-					},
-					{ "encoding", cond = hide_in_width },
-					{ "filetype", cond = hide_in_width },
+					"branch",
+					-- diff,
+					-- {
+					-- 	function()
+					-- 		return sys.cpu():gsub("%%", "%%%%")
+					-- 	end,
+					-- },
+					-- {
+					-- 	function()
+					-- 		return sys.ram():gsub("%%", "%%%%")
+					-- 	end,
+					-- },
+					-- { "encoding", cond = hide_in_width },
+					-- { "filetype", cond = hide_in_width },
 				},
 				lualine_y = { "location" },
-				lualine_z = { "progress" },
+				-- lualine_z = { "progress" },
 			},
-			inactive_sections = {
-				lualine_a = {},
-				lualine_b = {},
+			inactive_winbar = {
 				lualine_c = { { "filename", path = 1 } },
-				lualine_x = { { "location", padding = 0 } },
-				lualine_y = {},
-				lualine_z = {},
 			},
 			tabline = {},
 			extensions = { "fugitive" },
