@@ -11,9 +11,6 @@ local opts = { noremap = true, silent = true }
 -- save all files on buffer without saving
 vim.keymap.set("n", "<leader>wA", "<cmd>wall<CR>", { desc = "Save all (no format)", silent = true, noremap = true })
 
--- save file without auto-formatting
-vim.keymap.set("n", "<leader>sn", "<cmd>noautocmd w <CR>", opts)
-
 -- quit file
 vim.keymap.set("n", "<C-q>", "<cmd> q <CR>", opts)
 
