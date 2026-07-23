@@ -89,9 +89,8 @@ Requires tree-sitter-cli installed on the system.
 │   │   ├── treesitter.lua   # Treesitter + folds
 │   │   ├── ui.lua           # Statusline, notifications
 │   │   ├── telescope.lua
-│   │   └── ...
-│   └── utils/
-│       └── sysinfo.lua      # CPU/RAM for lualine
+└   └   └── ...
+
 ```
 
 Each concern lives in exactly one file.

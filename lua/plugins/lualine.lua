@@ -1,16 +1,11 @@
--- local ok_sys, sys = pcall(require, "utils.sysinfo")
--- if ok_sys and sys.setup then
--- 	sys.setup({ interval_ms = 1500 })
--- end
-
 return {
 	"nvim-lualine/lualine.nvim",
 	config = function()
 		local mode = {
 			"mode",
 			fmt = function(str)
-				return " " .. str
-				-- return ' ' .. str:sub(1, 1) -- displays only the first character of the mode
+				-- return " " .. str
+				return ' ' .. str:sub(1, 3) -- displays only the first character of the mode
 			end,
 		}
 
@@ -66,22 +61,9 @@ return {
 				lualine_x = {
 					diagnostics,
 					"branch",
-					-- diff,
-					-- {
-					-- 	function()
-					-- 		return sys.cpu():gsub("%%", "%%%%")
-					-- 	end,
-					-- },
-					-- {
-					-- 	function()
-					-- 		return sys.ram():gsub("%%", "%%%%")
-					-- 	end,
-					-- },
-					-- { "encoding", cond = hide_in_width },
-					-- { "filetype", cond = hide_in_width },
 				},
 				lualine_y = { "location" },
-				-- lualine_z = { "progress" },
+
 			},
 			inactive_winbar = {
 				lualine_c = { { "filename", path = 1 } },
