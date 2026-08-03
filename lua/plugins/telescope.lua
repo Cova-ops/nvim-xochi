@@ -21,7 +21,7 @@ return {
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 
 		-- Useful for getting pretty icons, but requires a Nerd Font.
-		{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+		{ "nvim-tree/nvim-web-devicons",            enabled = vim.g.have_nerd_font },
 	},
 	config = function()
 		-- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -45,6 +45,7 @@ return {
 
 		-- [[ Configure Telescope ]]
 		-- See `:help telescope` and `:help telescope.setup()`
+		local actions = require("telescope.actions")
 		require("telescope").setup({
 			defaults = {
 				mappings = {
@@ -52,6 +53,23 @@ return {
 						["<C-k>"] = require("telescope.actions").move_selection_previous,
 						["<C-j>"] = require("telescope.actions").move_selection_next,
 						["<C-l>"] = require("telescope.actions").select_default,
+
+						-- Apply zz after select a search
+						["<CR>"] = function(prompt_bufnr)
+							actions.select_default(prompt_bufnr)
+							vim.schedule(function()
+								vim.cmd("normal! zz")
+							end)
+						end,
+					},
+					n = {
+						-- Apply zz after select a search
+						["<CR>"] = function(prompt_bufnr)
+							actions.select_default(prompt_bufnr)
+							vim.schedule(function()
+								vim.cmd("normal! zz")
+							end)
+						end,
 					},
 				},
 			},
@@ -71,11 +89,16 @@ return {
 					additional_args = function(_)
 						return {
 							"--hidden",
+							"--no-ignore",
+							"--glob=!.git/**",
+							"--glob=!node_modules/**",
+							"--glob=!dist/**",
+							"--glob=!build/**",
+							"--glob=!coverage/**",
+							"--glob=!.next/**",
 							"--glob=!package-lock.json",
 							"--glob=!yarn.lock",
 							"--glob=!pnpm-lock.yaml",
-							"--glob=!node_modules/**",
-							"--glob=!.git/**",
 						}
 					end,
 				},
@@ -105,11 +128,15 @@ return {
 
 		-- Slightly advanced example of overriding default behavior and theme
 		vim.keymap.set("n", "<leader>/", function()
-			-- You can pass additional configuration to Telescope to change the theme, layout, etc.
-			builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-				winblend = 10,
-				previewer = false,
-			}))
+			builtin.current_buffer_fuzzy_find({
+				previewer = true,
+				layout_strategy = "horizontal",
+				layout_config = {
+					width = 0.9,
+					height = 0.85,
+					preview_width = 0.55,
+				},
+			})
 		end, { desc = "[/] Fuzzily search in current buffer" })
 
 		-- It's also possible to pass additional configuration options.
