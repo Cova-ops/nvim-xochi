@@ -3,15 +3,13 @@ return {
 	branch = "main",
 	lazy = false,
 	build = ":TSUpdate",
-	opts = {
-		install_dir = vim.fn.stdpath("data") .. "/site",
-		auto_install = true,
-	},
-	config = function(_, opts)
-		local ts = require("nvim-treesitter")
-		ts.setup(opts)
 
-		local languages = {
+	config = function()
+		local ts = require("nvim-treesitter")
+
+		ts.setup()
+
+		ts.install({
 			"lua",
 			"javascript",
 			"typescript",
@@ -27,8 +25,6 @@ return {
 			"bash",
 			"markdown",
 			"markdown_inline",
-		}
-
-		ts.install(languages)
+		})
 	end,
 }
