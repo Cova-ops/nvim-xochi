@@ -56,6 +56,7 @@ return {
 						"build",
 						"coverage",
 						".next",
+						"target",
 					},
 				},
 
@@ -75,6 +76,7 @@ return {
 						"package-lock.json",
 						"yarn.lock",
 						"pnpm-lock.yaml",
+						"target",
 					},
 				},
 			},
