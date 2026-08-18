@@ -6,7 +6,7 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldcolumn = "0"
 
 _G.custom_fold_text = function()
-  return vim.fn.getline(vim.v.foldstart) .. " …"
+	return vim.fn.getline(vim.v.foldstart) .. " …"
 end
 
 vim.opt.foldtext = "v:lua.custom_fold_text()"
