@@ -7,13 +7,10 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 
 		-- Useful status updates for LSP.
-		{ "j-hui/fidget.nvim",       opts = {} },
+		{ "j-hui/fidget.nvim", opts = {} },
 
 		-- Allows extra capabilities provided by nvim-cmp
 		"hrsh7th/cmp-nvim-lsp",
-
-		-- Better TS/JS LSP experience than plain tsserver
-		"pmizio/typescript-tools.nvim",
 
 		-- JSON/YAML schemas
 		"b0o/schemastore.nvim",
@@ -28,15 +25,6 @@ return {
 					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
 
-				-- map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-				-- map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-				-- map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-				-- map("gvd", function()
-				-- 	require("telescope.builtin").lsp_definitions({
-				-- 		jump_type = "vsplit",
-				-- 	})
-				-- end, "[G]oto [V]ertical [D]efinition")
-
 				map("gd", function()
 					Snacks.picker.lsp_definitions()
 				end, "[G]oto [D]efinition")
@@ -46,13 +34,6 @@ return {
 				map("gI", function()
 					Snacks.picker.lsp_implementations()
 				end, "[G]oto [I]mplementation")
-				-- map("gvd", function()
-				-- 	Snacks.picker.lsp_definitions({
-				-- 		confirm = function(picker)
-				-- 			picker:action("edit_vsplit")
-				-- 		end
-				-- 	})
-				-- end, "[G]oto [V]ertical [D]efinition")
 
 				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
@@ -100,20 +81,8 @@ return {
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-		-- typescript-tools (se maneja aparte, NO via mason-lspconfig handlers)
-		require("typescript-tools").setup({
-			capabilities = capabilities,
-			settings = {
-				tsserver_file_preferences = {
-					includeInlayParameterNameHints = "all",
-					includeInlayFunctionParameterTypeHints = true,
-					includeInlayVariableTypeHints = true,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayEnumMemberValueHints = true,
-				},
-			},
-		})
+		vim.lsp.config("tsc", { capabilities = capabilities })
+		vim.lsp.enable("tsc")
 
 		-- Diagnostics (Neovim 0.11+)
 		vim.diagnostic.config({
@@ -263,8 +232,5 @@ return {
 				})
 			end,
 		})
-
-		-- (opcional) keymap para correr fix all de eslint rápido
-		vim.keymap.set("n", "<leader>ef", "<cmd>EslintFixAll<cr>", { desc = "ESLint: Fix all" })
 	end,
 }
