@@ -58,12 +58,6 @@ map("n", "<C-j>", ":wincmd j<CR>", "Focus lower split")
 map("n", "<C-h>", ":wincmd h<CR>", "Focus left split")
 map("n", "<C-l>", ":wincmd l<CR>", "Focus right split")
 
--- Tabs
-map("n", "<leader>to", ":tabnew<CR>", "New tab")
-map("n", "<leader>tx", ":tabclose<CR>", "Close tab")
-map("n", "<leader>tn", ":tabnext<CR>", "Next tab")
-map("n", "<leader>tp", ":tabprevious<CR>", "Previous tab")
-
 -- Toggle line wrapping
 map("n", "<leader>lw", "<cmd>set wrap!<CR>", "Toggle line wrap")
 
@@ -79,3 +73,4 @@ map("n", "[d", vim.diagnostic.goto_prev, "Previous diagnostic")
 map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
 map("n", "<leader>d", vim.diagnostic.open_float, "Show diagnostic")
 map("n", "<leader>q", vim.diagnostic.setloclist, "Diagnostics list")
+
