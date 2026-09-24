@@ -33,11 +33,20 @@ map("n", "<C-u>", "<C-u>zz", "Half page up")
 map("n", "n", "nzzzv", "Next search result")
 map("n", "N", "Nzzzv", "Previous search result")
 
+-- Resize with arrows, except in terminal buffers
+local function resize_if_not_terminal(command)
+	return function()
+		if vim.bo.buftype ~= "terminal" then
+			vim.cmd(command)
+		end
+	end
+end
+
 -- Resize with arrows
-map("n", "<Up>", ":resize -2<CR>", "Decrease window height")
-map("n", "<Down>", ":resize +2<CR>", "Increase window height")
-map("n", "<Left>", ":vertical resize -2<CR>", "Decrease window width")
-map("n", "<Right>", ":vertical resize +2<CR>", "Increase window width")
+map("n", "<Up>", resize_if_not_terminal("resize -2"), "Decrease window height")
+map("n", "<Down>", resize_if_not_terminal("resize +2"), "Increase window height")
+map("n", "<Left>", resize_if_not_terminal("vertical resize -2"), "Decrease window width")
+map("n", "<Right>", resize_if_not_terminal("vertical resize +2"), "Increase window width")
 
 -- Buffers
 map("n", "<Tab>", ":bnext<CR>", "Next buffer")
@@ -73,4 +82,3 @@ map("n", "[d", vim.diagnostic.goto_prev, "Previous diagnostic")
 map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
 map("n", "<leader>d", vim.diagnostic.open_float, "Show diagnostic")
 map("n", "<leader>q", vim.diagnostic.setloclist, "Diagnostics list")
-
