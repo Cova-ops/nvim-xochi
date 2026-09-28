@@ -4,7 +4,7 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		opts = {
-			flavour = "latte", -- options: latte, frappe, macchiato, mocha
+			flavour = "macchiato", -- options: latte, frappe, macchiato, mocha
 		},
 		config = function(_, opts)
 			require("catppuccin").setup(opts)
