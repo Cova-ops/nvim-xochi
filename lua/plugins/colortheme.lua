@@ -10,15 +10,15 @@ return {
 	},
 
 	{
-		"rose-pine/neovim",
-		name = "rose-pine",
+		"projekt0n/github-nvim-theme",
+		name = "github-theme",
 		priority = 1000,
 		lazy = false,
 		opts = {
 			variant = "dawn",
 		},
 		config = function(_, opts)
-			require("rose-pine").setup(opts)
+			require("github-theme").setup({})
 
 			local current_mode = nil
 
@@ -44,7 +44,7 @@ return {
 					vim.cmd.colorscheme("catppuccin-macchiato")
 				else
 					vim.o.background = "light"
-					vim.cmd.colorscheme("rose-pine-dawn")
+					vim.cmd.colorscheme("github_light_high_contrast")
 				end
 			end
 
