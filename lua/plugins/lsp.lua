@@ -7,7 +7,16 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 
 		-- Useful status updates for LSP.
-		{ "j-hui/fidget.nvim", opts = {} },
+		{
+
+			"j-hui/fidget.nvim",
+			opts = {
+				progress = {
+					display = { render_limit = 3, done_ttl = 1, progress_icon = { "dots" }, done_icon = "✓" },
+				},
+				notification = { window = { winblend = 0, border = "none" } },
+			},
+		},
 
 		-- Allows extra capabilities provided by nvim-cmp
 		"hrsh7th/cmp-nvim-lsp",
