@@ -12,12 +12,12 @@ end
 vim.opt.foldtext = "v:lua.custom_fold_text()"
 
 vim.api.nvim_create_user_command("FoldRestart", function()
-    local original = vim.o.foldminlines
+	local original = vim.wo.foldminlines
 
-    vim.o.foldminlines = original + 1
-    vim.o.foldminlines = original
+	vim.wo.foldminlines = original + 1
+	vim.wo.foldminlines = original
 
-    vim.cmd("normal! zx")
+	vim.cmd("normal! zx")
 end, {
-    desc = "Recalculate Treesitter folds for all buffers",
+	desc = "Recalculate Treesitter folds for current buffer",
 })
