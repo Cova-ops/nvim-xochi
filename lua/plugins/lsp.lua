@@ -115,7 +115,6 @@ return {
 							command = "clippy",
 							allTargets = true,
 						},
-
 						inlayHints = {
 							enable = true,
 							typeHints = { enable = true },
