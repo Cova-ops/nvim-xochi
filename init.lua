@@ -5,6 +5,7 @@ require("core.snippets")
 require("core.autoread")
 require("core.folds")
 require("core.netrw")
+require("core.surround")
 
 vim.api.nvim_set_hl(0, "SysInfoOk", { link = "DiagnosticOk" })
 vim.api.nvim_set_hl(0, "SysInfoWarn", { link = "DiagnosticWarn" })
@@ -23,3 +24,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
+
+-- Enable local configuration
+vim.o.exrc = true
