@@ -61,6 +61,7 @@ return {
 						"coverage",
 						".next",
 						"target",
+						"cdk.out"
 					},
 				},
 
@@ -81,6 +82,7 @@ return {
 						"yarn.lock",
 						"pnpm-lock.yaml",
 						"target",
+						"cdk.out"
 					},
 				},
 			},
